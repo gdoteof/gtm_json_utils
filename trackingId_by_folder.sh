@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage(){
-  echo "Prints names and id for export from GTM"
+  echo "Prints tracking id for all tags of a given folder"
   echo "$0 GTM-XXXX.json folder_id";
   echo "Note, you can get the folder ID by using ./list_folders.sh"
   exit 1
@@ -23,4 +23,3 @@ fi
 
   
 cat $1 | jq ".containerVersion.tag | .[] | select(.parentFolderId == \"$2\" ) | .parameter | .[] | select(.key == \"trackingId\")"
-#cat $1 | jq ".containerVersion.tag | .[] | select(.parentFolderId == \"$2\" ) | .parameter | .[] | select(.key=='trackingId')"
