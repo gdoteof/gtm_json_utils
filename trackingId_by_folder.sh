@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage(){
-  echo "Prints all tag names for export from GTM"
+  echo "Prints names and id for export from GTM"
   echo "$0 GTM-XXXX.json folder_id";
   echo "Note, you can get the folder ID by using ./list_folders.sh"
   exit 1
@@ -20,5 +20,7 @@ require_jq(){
 if ! [ -x "$(command -v jq)" ]; then
   require_jq
 fi
+
   
-cat $1 | jq '.containerVersion.tag | .[] | select(.parentFolderId == "308") | .parameter | .[] | select(.key=="trackingId")'
+cat $1 | jq ".containerVersion.tag | .[] | select(.parentFolderId == \"$2\" ) | .parameter | .[] | select(.key == \"trackingId\")"
+#cat $1 | jq ".containerVersion.tag | .[] | select(.parentFolderId == \"$2\" ) | .parameter | .[] | select(.key=='trackingId')"
