@@ -34,5 +34,5 @@ fi
 #    value: $value
 #}'
 
-cat $1 | jq  -r '.containerVersion.tag | map({name} + (.parameter | from_entries)) | 
-   .[] | select(has("eventLabel") or has("eventValue") or has("eventCategory"))'
+cat $1 | jq  -r '[.containerVersion.tag | map({name} + (.parameter | from_entries)) | 
+   .[] | select(has("eventLabel") or has("eventValue") or has("eventCategory"))]'
