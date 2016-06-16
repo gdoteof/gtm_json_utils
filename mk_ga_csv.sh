@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage(){
-  echo "Prints tracking id for all tags of a given folder"
+  echo "Creates a csv file from GTM json dump containing all GA events"
   echo "$0 GTM-XXXX.json folder_id";
   echo "Note, you can get the folder ID by using ./list_folders.sh"
   exit 1
