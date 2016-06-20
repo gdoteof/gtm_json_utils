@@ -13,12 +13,23 @@ require_jq(){
   exit 1
 }
 
+require_json2csv(){
+  echo "$0 Requires the json2csv utility"
+  echo "See https://github.com/zemirco/json2csv "
+  echo "HINT-- npm install json2csv -g"
+  exit 1
+}
+
 [ $# -lt 1 ] && {
   usage
 }
 
 if ! [ -x "$(command -v jq)" ]; then
   require_jq
+fi
+
+if ! [ -x "$(command -v json2csv)" ]; then
+  require_json2csv
 fi
 
   
@@ -35,4 +46,4 @@ fi
 #}'
 
 cat $1 | jq  -r '[.containerVersion.tag | map({name} + (.parameter | from_entries)) | 
-   .[] | select(has("eventLabel") or has("eventValue") or has("eventCategory"))]'
+   .[] | select(has("eventLabel") or has("eventValue") or has("eventCategory"))]' | json2csv -f name,eventCategory,eventAction,eventLabel,eventValue,trackingId 
